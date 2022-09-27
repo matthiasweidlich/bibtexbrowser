@@ -171,7 +171,7 @@ if (defined('ENCODING')) {
 @define('USE_FIRST_THEN_LAST',false); // put first names before last names?
 @define('FORCE_NAMELIST_SEPARATOR', ''); // if non-empty, use this to separate multiple names regardless of USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT
 @define('LAST_AUTHOR_SEPARATOR',' and ');
-@define('USE_OXFORD_COMMA',false); // adds an additional separator in addition to LAST_AUTHOR_SEPARATOR if there are more than two authors
+@define('USE_OXFORD_COMMA',true); // adds an additional separator in addition to LAST_AUTHOR_SEPARATOR if there are more than two authors
 
 @define('TYPES_SIZE',10); // number of entry types per table
 @define('YEAR_SIZE',20); // number of years per table
@@ -4242,6 +4242,7 @@ if (method_exists($content, 'getTitle')) {
 
 if (c('LINK_CSS')) {
   if (is_readable(dirname(__FILE__).'/bibtexbrowser.css')) {
+    echo '<link rel="stylesheet" href="/bibtexbrowser.css" />';
     echo '<link rel="stylesheet" href="bibtexbrowser.css" />';
   }
 } 
@@ -4863,7 +4864,7 @@ class Dispatcher {
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo OUTPUT_ENCODING ?>"/>
     <title>You are browsing <?php echo htmlentities($_GET[Q_FILE], ENT_QUOTES); ?> with bibtexbrowser</title>
     </head>
-    <frameset cols="15%,*">
+    <frameset rows="200px,*" border="0" frameborder="0">
     <frame name="menu" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;menu'; ?>" />
     <frame name="main" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;'.BIBTEXBROWSER_DEFAULT_FRAME?>" />
     </frameset>

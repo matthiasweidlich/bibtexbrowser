@@ -1,3 +1,7 @@
+body {
+  font-size: 80%;
+  font-family: Verdana, Helvetica, Arial, sans-serif !important;
+}
 
 /* title */
 .bibtitle { font-weight:bold; }
@@ -19,31 +23,30 @@
 /* 2nd level headers, equivalent H2  */
 .sheader {
   font-weight: bold;
-  background-color: #003366;
-  color: #ffffff;
+  background-color: #ccd6e0;
+  color: #003366;
   padding: 2px;
   margin-bottom: 0px;
   margin-top: 7px;
-  border-bottom: #ff6633 2px solid;
 
 }
 
 /* 3rd level headers, equivalent H3  */
 .theader {
-  background-color: #995124;
-  color: #FFFFFF;
+  background-color: #ccd6e0;
+  color: #003366;
   padding: 1px 2px 1px 2px;
 }
 
 .btb-nav-title {
-  background-color: #995124;
-  color: #FFFFFF;
+  background-color: #ccd6e0;
+  color: #003366;
   padding: 1px 2px 1px 2px;
 }
 
 .menu {
   font-size: x-small;
-  background-color: #EFDDB4;
+  background-color: #ccd6e0;
   padding: 0px;
   border: 1px solid #000000;
   margin: 0px;
