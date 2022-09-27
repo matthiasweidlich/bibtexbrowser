@@ -237,6 +237,8 @@ if (defined('ENCODING')) {
 // where the bib file and bibtexbrowser.php are in different directories. 
 @define('DATA_DIR','');
 
+@define('LINK_CSS',true);
+
 // *************** END CONFIGURATION
 
 define('Q_INNER_AUTHOR', '_author');// internally used for representing the author
@@ -2803,7 +2805,7 @@ MathJax = {
 };
 </script>
 <script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  src="<?php echo MATHJAX_URI ?>">
 </script>
     <?php
   }
@@ -4238,17 +4240,24 @@ if (method_exists($content, 'getTitle')) {
   echo '<title>'.strip_tags($content->getTitle()).'</title>';
 }
 
-// now the CSS
-echo '<style type="text/css"><!--  '."\n";
+if (c('LINK_CSS')) {
+  if (is_readable(dirname(__FILE__).'/bibtexbrowser.css')) {
+    echo '<link rel="stylesheet" href="/bibtexbrowser.css" />';
+  }
+} 
+else {
+  // now the CSS
+  echo '<style type="text/css"><!--  '."\n";
 
-if (method_exists($content, 'getCSS')) {
-  echo $content->getCSS();
-} else if (is_readable(dirname(__FILE__).'/bibtexbrowser.css')) {
-  readfile(dirname(__FILE__).'/bibtexbrowser.css');
+  if (method_exists($content, 'getCSS')) {
+    echo $content->getCSS();
+  } else if (is_readable(dirname(__FILE__).'/bibtexbrowser.css')) {
+    readfile(dirname(__FILE__).'/bibtexbrowser.css');
+  }
+  else {  bibtexbrowserDefaultCSS(); }
+
+  echo "\n".' --></style>';
 }
-else {  bibtexbrowserDefaultCSS(); }
-
-echo "\n".' --></style>';
 
 ?>
 </head>
