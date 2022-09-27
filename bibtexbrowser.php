@@ -1121,6 +1121,7 @@ function latex2html($line, $do_clean_extra_bracket=true) {
 
 /** encodes strings for Z3988 URLs. Note that & are encoded as %26 and not as &amp. */
 function s3988($s) {
+  if ($s == null) return '';
   // first remove the HTML entities (e.g. &eacute;) then urlencode them
   return urlencode($s);
 }
@@ -1486,6 +1487,7 @@ class BibEntry {
   }
 
   function split_authors() {
+    if (!array_key_exists(Q_AUTHOR, $this->raw_fields)) return array();
     $array = preg_split('/ and( |$)/ims', @$this->raw_fields[Q_AUTHOR]);
     $res = array();
     // we merge the remaining ones
@@ -1696,10 +1698,12 @@ class BibEntry {
 
   /** Returns the year of this entry? */
   function getYear() {
-    return __(strtolower($this->getField('year')));
+    return __(strtolower($this->getYearRaw()));
   }
   function getYearRaw() {
-    return $this->getField('year');
+    $r = $this->getField('year'); 
+    if ($r == null) return '';
+    return $r;
   }
 
   /** returns the array of keywords */
@@ -2402,13 +2406,14 @@ function DefaultBibliographyStyle($bibentry) {
       $publisher .= ', '.$bibentry->getField("institution");
   }
 
+  if ($bibentry->hasField("publisher")) {
+      $publisher = $bibentry->getField("publisher");
+  }
+
   if ($type=="misc") {
       $publisher = $bibentry->getField('howpublished');
   }
 
-  if ($bibentry->hasField("publisher")) {
-    $publisher = $bibentry->getField("publisher");
-  }
 
   if ($publisher!='') $entry[] = '<span class="bibpublisher">'.$publisher.'</span>';
 
@@ -2869,7 +2874,8 @@ class MenuManager {
       <input type="text" name="<?php echo Q_SEARCH; ?>" class="input_box" size="18"/>
       <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo @$_GET[Q_FILE]; ?>"/>
       <br/>
-      <input type="submit" value="search" class="input_box"/>
+      <!-- submit button -->
+      <input type="submit" value="<?php echo __("search"); ?>" class="input_box"/>
     </form>
     <?php
   }
@@ -2878,9 +2884,9 @@ class MenuManager {
   function typeVC() {
     $types = array();
     foreach ($this->db->getTypes() as $type) {
-      $types[$type] = $type;
+      $types[$type] = __($type);
     }
-    $types['.*'] = 'all types';
+    $types['.*'] = __('all types');;
     // retreive or calculate page number to display
     if (isset($_GET[Q_TYPE_PAGE])) {
       $page = $_GET[Q_TYPE_PAGE];
@@ -2964,7 +2970,7 @@ else $page = 1;
         and the navigation links on the right -->
         <table style="width:100%" border="0" cellspacing="0" cellpadding="0">
           <tr class="btb-nav-title">
-            <td><b><?php echo $title; ?></b></td>
+            <td><b><?php echo __($title); ?></b></td>
             <td class="btb-nav"><b>
                 <?php echo $this->menuPageBar($pageKey, $numEntries, $page,
            $pageSize, $startIndex, $endIndex);?></b></td>
