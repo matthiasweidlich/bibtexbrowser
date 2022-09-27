@@ -4242,7 +4242,10 @@ if (method_exists($content, 'getTitle')) {
 
 if (c('LINK_CSS')) {
   if (is_readable(dirname(__FILE__).'/bibtexbrowser.css')) {
-    echo '<link rel="stylesheet" href="bibtexbrowser.css" />';
+    echo '<style>';
+    include 'bibtexbrowser.css'; 
+    echo '</style>';
+  //echo '<link rel="stylesheet" href="bibtexbrowser.css" />';
   }
 } 
 else {
