@@ -1,6 +1,7 @@
 body {
   font-size: 80%;
   font-family: Verdana, Helvetica, Arial, sans-serif !important;
+  margin: 0px;
 }
 
 /* title */
@@ -45,18 +46,16 @@ body {
 }
 
 .menu {
-  font-size: x-small;
-  background-color: #ccd6e0;
-  padding: 0px;
-  border: 1px solid #000000;
+  padding: 0.5em 0em;
+  border-bottom: 1px solid #B2C1D1;
   margin: 0px;
 }
 .menu a {
+  color: #006699;
   text-decoration: none;
-  color: #003366;
 }
 .menu a:hover {
-  color: #ff6633;
+  color: #004665;
 }
 
 dd {
@@ -82,20 +81,15 @@ dd {
 }
 .result a {
   text-decoration: none;
-  color: #469AF8;
+  color: #006699;
 }
 
 .result a:hover {
-  color: #ff6633;
+  color: #004665;
 }
 
 .input_box{
   margin-bottom : 2px;
-}
-.mini_se {
-  border: none 0;
-  border-top: 1px dashed #717171;
-  height: 1px;
 }
 .a_name a {
   color:#469AF8;

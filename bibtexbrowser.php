@@ -2872,13 +2872,17 @@ class MenuManager {
   /** Displays the search view in a form. */
   function searchView() {
     ?>
+    <div class="menu">
     <form action="?" method="get" target="<?php echo BIBTEXBROWSER_MENU_TARGET;?>">
+      Search for publications: 
       <input type="text" name="<?php echo Q_SEARCH; ?>" class="input_box" size="18"/>
       <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo @$_GET[Q_FILE]; ?>"/>
-      <br/>
+      
       <!-- submit button -->
       <input type="submit" value="<?php echo __("search"); ?>" class="input_box"/>
-    </form>
+    </form> 
+    </div>
+
     <?php
   }
 
@@ -2895,7 +2899,7 @@ class MenuManager {
     }
     else $page = 1;
 
-    $this->displayMenu('Types', $types, $page, $this->type_size, Q_TYPE_PAGE, Q_INNER_TYPE);
+    $this->displayMenu('type', $types, $page, $this->type_size, Q_TYPE_PAGE, Q_INNER_TYPE);
   }
 
   /** Displays and controls the authors menu in a table. */
@@ -2910,7 +2914,7 @@ class MenuManager {
     else $page = 1;
 
 
-    $this->displayMenu('Authors', $authors, $page, $this->author_size, Q_AUTHOR_PAGE,
+    $this->displayMenu('author', $authors, $page, $this->author_size, Q_AUTHOR_PAGE,
          Q_AUTHOR);
   }
 
@@ -2925,7 +2929,7 @@ class MenuManager {
     }  else $page = 1;
 
 
-    if (count($tags)>0) $this->displayMenu('Keywords', $tags, $page, $this->tag_size, Q_TAG_PAGE,
+    if (count($tags)>0) $this->displayMenu('keyword', $tags, $page, $this->tag_size, Q_TAG_PAGE,
          Q_TAG);
   }
 
@@ -2941,7 +2945,7 @@ class MenuManager {
 else $page = 1;
 
 
-    $this->displayMenu('Years', $years, $page, $this->year_size, Q_YEAR_PAGE,
+    $this->displayMenu('year', $years, $page, $this->year_size, Q_YEAR_PAGE,
          Q_YEAR);
   }
 
@@ -2965,28 +2969,17 @@ else $page = 1;
     $startIndex = ($page - 1) * $pageSize;
     $endIndex = $startIndex + $pageSize;
     ?>
-    <table style="width:100%"  class="menu">
-      <tr>
-        <td>
+    <div class="menu">
         <!-- this table is used to have the label on the left
         and the navigation links on the right -->
-        <table style="width:100%" border="0" cellspacing="0" cellpadding="0">
-          <tr class="btb-nav-title">
-            <td><b><?php echo __($title); ?></b></td>
-            <td class="btb-nav"><b>
-                <?php echo $this->menuPageBar($pageKey, $numEntries, $page,
-           $pageSize, $startIndex, $endIndex);?></b></td>
-          </tr>
-        </table>
-        </td>
-      </tr>
-      <tr>
-        <td class="btb-menu-items">
+            Filter by <?php echo __($title); ?>:&nbsp;          
           <?php $this->displayMenuItems($list, $startIndex, $endIndex,
      $targetKey); ?>
-        </td>
-      </tr>
-    </table>
+        <div class="btb-nav"><b>
+            <?php echo $this->menuPageBar($pageKey, $numEntries, $page,
+       $pageSize, $startIndex, $endIndex);?></b></div>
+
+    </div>
   <?php
   }
 
@@ -3033,11 +3026,10 @@ else $page = 1;
       if ($index >= $startIndex && $index < $endIndex) {
         if ($queryKey === 'year') {
           $href = makeHref(array($queryKey => __($item)));
-	} else {
-          $href = makeHref(array($queryKey => $key));
-	}
+      	} else {
+                $href = makeHref(array($queryKey => $key));
+      	}
         echo '<a '. $href .' target="'.BIBTEXBROWSER_MENU_TARGET.'">'. $item ."</a>\n";
-        echo "<div class=\"mini_se\"></div>\n";
       }
       $index++;
     }
