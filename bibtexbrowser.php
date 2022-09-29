@@ -2129,7 +2129,8 @@ function _DefaultBibliographyTitle($query) {
 }
 
 function DefaultBibliographyTitle($query) {
-  $result = 'Publications in '.$_GET[Q_FILE];
+  //$result = 'Publications in '.$_GET[Q_FILE];
+  $result = 'Publications ';
   if (isset($query['all'])) {
     unset($query['all']);
   }

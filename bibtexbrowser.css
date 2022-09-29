@@ -17,15 +17,12 @@ body {
 /* 1st level headers, equivalent H1  */
 .rheader {
   color: #003366;
-  font-size: large;
-  font-weight: bold;
+  font-size: 130%;
 }
 
 /* 2nd level headers, equivalent H2  */
 .sheader {
-  font-weight: bold;
   background-color: #ccd6e0;
-  color: #003366;
   padding: 2px;
   margin-bottom: 0px;
   margin-top: 7px;
