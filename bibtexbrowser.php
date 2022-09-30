@@ -81,7 +81,7 @@ if (defined('ENCODING')) {
 // can we load bibtex files on external servers?
 @define('BIBTEXBROWSER_LOCAL_BIB_ONLY', true);
 
-// the default view in {SimpleDisplay,AcademicDisplay,RSSDisplay,BibtexDisplay}
+// the default view in {SimpleDisplay,AcademicDisplay,RSSDisplay,BibtexDisplay,PagedDisplay}
 @define('BIBTEXBROWSER_DEFAULT_DISPLAY','SimpleDisplay');
 
 // the default template
@@ -136,7 +136,7 @@ if (defined('ENCODING')) {
 // none: nothing
 // their homepage if defined as @strings
 // their publication lists according to this bibtex
-@define('BIBTEXBROWSER_AUTHOR_LINKS','homepage');
+@define('BIBTEXBROWSER_AUTHOR_LINKS','resultpage');
 
 // BIBTEXBROWSER_LAYOUT defines the HTML rendering layout of the produced HTML
 // may be table/list/ordered_list/definition/none (for <table>, <ol>, <dl>, nothing resp.).
@@ -2740,7 +2740,7 @@ class IndependentYearMenu  {
 if (!function_exists('poweredby')) {
   /** Returns the powered by part. @nodoc */
   function poweredby() {
-    $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
+    $poweredby = "\n".'<div style="" class="poweredby">';
     $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
     $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v__GITHUB__-->';
     $poweredby .= '</div>'."\n";
@@ -4267,7 +4267,6 @@ if (method_exists($content, 'getTitle')) {
 ?>
 <?php
   $content->display();
-  echo poweredby();
 
   if (c('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT')) {
     javascript();
@@ -4276,6 +4275,7 @@ if (method_exists($content, 'getTitle')) {
   if (BIBTEXBROWSER_RENDER_MATH) {
     javascript_math();
   }
+  echo poweredby();
 ?>
 </body>
 </html>
