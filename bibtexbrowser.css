@@ -120,16 +120,20 @@ dd {
   border: 1px solid #DDDDDD;
   background: none repeat scroll 0 0 #F5F5F5;
   padding:10px;
-
   overflow:auto;
-  width:100%;
-
+  width:640px;
   clear:both;
 }
 .bibentry-by { font-style: italic; }
 .bibentry-abstract { margin:15px; }
 .bibentry-label { margin-top:15px; }
-.bibentry-reference { margin-bottom:15px; padding:10px; background: none repeat scroll 0 0 #F5F5F5; border: 1px solid #DDDDDD; }
+.bibentry-reference { 
+	margin-bottom:15px; 
+	padding:10px; 
+	background: none repeat scroll 0 0 #F5F5F5;   
+	width:640px; 
+	border: 1px solid #DDDDDD; 
+}
 
 .btb-nav { float: right; } 
 

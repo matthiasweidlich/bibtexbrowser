@@ -130,7 +130,7 @@ if (defined('ENCODING')) {
 @define('BIBTEXBROWSER_GSID_LINKS',true);
 
 // should pdf, doi, url, gsid links be opened in a new window?
-@define('BIBTEXBROWSER_LINKS_TARGET','_self');// can be _blank (new window), _top (with frames)
+@define('BIBTEXBROWSER_LINKS_TARGET','_blank');// can be _blank (new window), _top (with frames)
 
 // should authors be linked to [none/homepage/resultpage]
 // none: nothing
