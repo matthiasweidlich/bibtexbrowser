@@ -2881,7 +2881,7 @@ class MenuManager {
       
       <!-- submit button -->
       <!-- <input type="submit" value="<?php echo __("search"); ?>" class="input_box"/>-->
-      <input type="image" alt="Search" class="search_submit" value="<?php echo __("search"); ?>" src="/img/submit.png" width="16px" height="16px">
+      <input type="image" alt="Search" class="search_submit" value="<?php echo __("search"); ?>" src="img/submit.png" width="16px" height="16px">
     </div>
     </form> 
     </div>
