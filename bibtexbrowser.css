@@ -122,7 +122,7 @@ dd {
   padding:10px;
 
   overflow:auto;
-  width:600px;
+  width:100%;
 
   clear:both;
 }
@@ -131,7 +131,7 @@ dd {
 .bibentry-label { margin-top:15px; }
 .bibentry-reference { margin-bottom:15px; padding:10px; background: none repeat scroll 0 0 #F5F5F5; border: 1px solid #DDDDDD; }
 
-.btb-nav { text-align: right; } 
+.btb-nav { float: right; } 
 
 .poweredby {
 	text-align:right;

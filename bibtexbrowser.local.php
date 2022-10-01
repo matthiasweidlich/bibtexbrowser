@@ -4,6 +4,8 @@
 
 @define('JQUERY_URI', 'js/jquery-1.5.1.min.js');
 @define('MATHJAX_URI', 'js/tex-mml-chtml.js');
+@define('BIBTEXBROWSER_JS_URI', 'js/bibtexbrowser.js');
 
+@define('LINK_CSS',true);
 
 ?>

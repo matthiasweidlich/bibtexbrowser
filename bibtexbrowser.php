@@ -237,8 +237,6 @@ if (defined('ENCODING')) {
 // where the bib file and bibtexbrowser.php are in different directories. 
 @define('DATA_DIR','');
 
-@define('LINK_CSS',true);
-
 // *************** END CONFIGURATION
 
 define('Q_INNER_AUTHOR', '_author');// internally used for representing the author
@@ -2195,7 +2193,7 @@ function compare_bib_entry_by_year($a, $b)
 
   if ($yearA === $yearB)
     return 0;
-  else if ($yearA < $yearB)
+  else if ($yearA > $yearB)
     return -1;
   else
     return 1;
@@ -2764,34 +2762,7 @@ function javascript() {
   // we use jquery with the official content delivery URLs
   // Microsoft and Google also provide jquery with their content delivery networks
 ?><script type="text/javascript" src="<?php echo JQUERY_URI ?>"></script>
-<script type="text/javascript" ><!--
-// Javascript progressive enhancement for bibtexbrowser
-$('a.biburl').each(function() { // for each url "[bibtex]"
-  var biburl = $(this);
-  if (biburl.attr('bibtexbrowser') === undefined)
-  {
-  biburl.click(function(ev) { // we change the click semantics
-    ev.preventDefault(); // no open url
-    if (biburl.nextAll('pre').length == 0) { // we don't have yet the bibtex data
-      var bibtexEntryUrl = $(this).attr('href');
-      $.ajax({url: bibtexEntryUrl,  dataType: 'html', success: function (data) { // we download it
-        // elem is the element containing bibtex entry, creating a new element is required for Chrome and IE
-        var elem = $('<pre class="purebibtex"/>');
-        elem.text($('.purebibtex', data).text()); // both text() are required for IE
-        // we add a link so that users clearly see that even with AJAX
-        // there is still one URL per paper.
-        elem.append(
-          $('<div class="bibtex_entry_url">%% Bibtex entry URL: <a href="'+bibtexEntryUrl+'">'+bibtexEntryUrl+'</a></div>')
-          ).appendTo(biburl.parent());
-      }, error: function() {window.location.href = biburl.attr('href');}});
-    } else {biburl.nextAll('pre').toggle();}  // we toggle the view
-  });
-  biburl.attr('bibtexbrowser','done');
-  } // end if biburl.bibtexbrowser;
-});
-
-
---></script><?php
+<script type="text/javascript" src="<?php echo BIBTEXBROWSER_JS_URI ?>"></script><?php
 } // end function javascript
 
 
@@ -2805,8 +2776,7 @@ MathJax = {
   }
 };
 </script>
-<script type="text/javascript" id="MathJax-script" async
-  src="<?php echo MATHJAX_URI ?>">
+<script type="text/javascript" id="MathJax-script" async src="<?php echo MATHJAX_URI ?>">
 </script>
     <?php
   }
@@ -2978,10 +2948,10 @@ else $page = 1;
             Filter by <?php echo __($title); ?>:&nbsp;          
           <?php $this->displayMenuItems($list, $startIndex, $endIndex,
      $targetKey); ?>
-        <div class="btb-nav"><b>
+        <span class="btb-nav">
        <?php echo $this->menuPageBar($pageKey, $numEntries, $page,
        $pageSize, $startIndex, $endIndex);
-     ?></b></div>
+     ?></span>
 
     </div>
   <?php
@@ -3003,13 +2973,13 @@ else $page = 1;
     // (1 page) reverse (<)
     if ($start > 0) {
       $href = makeHref(array($queryKey => $page - 1,'menu'=>''));//menuPageBar
-      $result .= '<a '. $href ."><b>[prev]</b></a>\n";
+      $result .= '<a '. $href .">[<]</a>\n";
     }
 
     // (1 page) forward (>)
     if ($end < $numEntries) {
       $href = makeHref(array($queryKey => $page + 1,'menu'=>''));//menuPageBar
-      $result .= '<a '. $href ."><b>[next]</b></a>\n";
+      $result .= '<a '. $href .">[>]</a>\n";
     }
 
     return $result;
@@ -3034,7 +3004,7 @@ else $page = 1;
                 $href = makeHref(array($queryKey => $key));
       	}
         echo '<a '. $href .' target="'.BIBTEXBROWSER_MENU_TARGET.'">'. $item ."</a>";
-        if ($index < count($items)-1) {
+        if ($index < count($items)-1 && $index < $endIndex-1) {
           echo "\n".'<span class="breadcrumbSeparator">|</span>'."\n";
         }
       }
@@ -4242,7 +4212,6 @@ if (method_exists($content, 'getTitle')) {
 
 if (c('LINK_CSS')) {
   if (is_readable(dirname(__FILE__).'/bibtexbrowser.css')) {
-    echo '<link rel="stylesheet" href="/bibtexbrowser.css" />';
     echo '<link rel="stylesheet" href="bibtexbrowser.css" />';
   }
 } 
