@@ -1318,7 +1318,12 @@ class BibEntry {
     if ($altlabel==NULL) { $altlabel=$bibfield; }
     $str = $this->getIconOrTxt($altlabel,$iconurl);
     if ($this->hasField($bibfield)) {
-       return '<a'.get_target().' href="'.$this->getField($bibfield).'">'.$str.'</a>';
+        // make sure that '\_' in URL is not parsed incorrectly
+        $link = $this->getField($bibfield);
+        if ($bibfield == 'url') {
+          $link = str_replace("\\_", "_", $link);
+        }
+       return '<a'.get_target().' href="'.$link.'">'.$str.'</a>';
     }
     return '';
   }
@@ -2343,8 +2348,14 @@ function DefaultBibliographyStyle($bibentry) {
   // title
   // usually in bold: .bibtitle { font-weight:bold; }
   $title = '<span class="bibtitle"  itemprop="name">'.$title.'</span>';
-  if ($bibentry->hasField('url')) $title = ' <a'.get_target().' href="'.$bibentry->getField('url').'">'.$title.'</a>';
-
+  
+  if ($bibentry->hasField('pdf')) {
+      $title = ' <a'.get_target().' href="'.$bibentry->getField('pdf').'">'.$title.'</a>';
+  }
+  else if ($bibentry->hasField('url')) {
+      $link = str_replace("\\_", "_", $bibentry->getField('url'));
+      $title = ' <a'.get_target().' href="'.$link.'">'.$title.'</a>';
+  }
 
   $coreInfo = $title;
 
@@ -2872,7 +2883,7 @@ class MenuManager {
     }
     else $page = 1;
 
-    $this->displayMenu('type', $types, $page, $this->type_size, Q_TYPE_PAGE, Q_INNER_TYPE);
+    $this->displayMenu('Type', $types, $page, $this->type_size, Q_TYPE_PAGE, Q_INNER_TYPE);
   }
 
   /** Displays and controls the authors menu in a table. */
@@ -2887,7 +2898,7 @@ class MenuManager {
     else $page = 1;
 
 
-    $this->displayMenu('author', $authors, $page, $this->author_size, Q_AUTHOR_PAGE,
+    $this->displayMenu('Author', $authors, $page, $this->author_size, Q_AUTHOR_PAGE,
          Q_AUTHOR);
   }
 
@@ -2918,7 +2929,7 @@ class MenuManager {
 else $page = 1;
 
 
-    $this->displayMenu('year', $years, $page, $this->year_size, Q_YEAR_PAGE,
+    $this->displayMenu('Year', $years, $page, $this->year_size, Q_YEAR_PAGE,
          Q_YEAR);
   }
 
@@ -2945,7 +2956,7 @@ else $page = 1;
     <div class="menu">
         <!-- this table is used to have the label on the left
         and the navigation links on the right -->
-            Filter by <?php echo __($title); ?>:&nbsp;          
+            <?php echo __($title); ?>:&nbsp;          
           <?php $this->displayMenuItems($list, $startIndex, $endIndex,
      $targetKey); ?>
         <span class="btb-nav">
