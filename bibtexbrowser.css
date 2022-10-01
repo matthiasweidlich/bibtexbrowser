@@ -18,6 +18,8 @@ body {
 .rheader {
   color: #003366;
   font-size: 130%;
+  border-bottom: 1px solid #B2C1D1;
+  margin-bottom: 8px;
 }
 
 /* 2nd level headers, equivalent H2  */
@@ -43,9 +45,9 @@ body {
 }
 
 .menu {
-  padding: 0.5em 0em;
-  border-bottom: 1px solid #B2C1D1;
-  margin: 0px;
+  padding: 0em 0em;
+  /*border-bottom: 1px solid #B2C1D1;
+  margin: 0px;*/
 }
 .menu a {
   color: #006699;
@@ -71,10 +73,10 @@ dd {
 }
 
 .result {
-  border: 1px solid #000000;
   margin:0px;
   background-color: #ffffff;
   width:100%;
+  border-bottom: 1px solid #B2C1D1;
 }
 .result a {
   text-decoration: none;
@@ -85,9 +87,21 @@ dd {
   color: #004665;
 }
 
-.input_box{
-  margin-bottom : 2px;
+.search_box {
+	height: 22px;
+	line-height: 18px;
+	padding-left: 1em;
+	padding-right: 2em;
+	outline: none;
+	box-sizing: border-box;
 }
+
+.search_submit {
+	position: relative;
+	right: 0;
+	top: 3px;
+}
+
 .a_name a {
   color:#469AF8;
   width:130px;

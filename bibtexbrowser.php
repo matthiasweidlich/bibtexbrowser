@@ -2856,7 +2856,7 @@ class MenuManager {
   echo $this->typeVC().'<br/>';
   echo $this->yearVC().'<br/>';
   echo $this->authorVC().'<br/>';
-  echo $this->tagVC().'<br/>';
+  //echo $this->tagVC().'<br/>';
   }
 
   /** Displays the title in a table. */
@@ -2875,12 +2875,14 @@ class MenuManager {
     ?>
     <div class="menu">
     <form action="?" method="get" target="<?php echo BIBTEXBROWSER_MENU_TARGET;?>">
-      Search for publications: 
-      <input type="text" name="<?php echo Q_SEARCH; ?>" class="input_box" size="18"/>
+      <div class="">
+      <input type="text" name="<?php echo Q_SEARCH; ?>" class="search_box" title="Search" placeholder="Search" size="18"/>
       <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo @$_GET[Q_FILE]; ?>"/>
       
       <!-- submit button -->
-      <input type="submit" value="<?php echo __("search"); ?>" class="input_box"/>
+      <!-- <input type="submit" value="<?php echo __("search"); ?>" class="input_box"/>-->
+      <input type="image" alt="Search" class="search_submit" value="<?php echo __("search"); ?>" src="https://www.hu-berlin.de/de/++resource++humboldt.directsearch.submit.png" width="16px" height="16px">
+    </div>
     </form> 
     </div>
 
@@ -2977,8 +2979,9 @@ else $page = 1;
           <?php $this->displayMenuItems($list, $startIndex, $endIndex,
      $targetKey); ?>
         <div class="btb-nav"><b>
-            <?php echo $this->menuPageBar($pageKey, $numEntries, $page,
-       $pageSize, $startIndex, $endIndex);?></b></div>
+       <?php echo $this->menuPageBar($pageKey, $numEntries, $page,
+       $pageSize, $startIndex, $endIndex);
+     ?></b></div>
 
     </div>
   <?php
@@ -3030,7 +3033,10 @@ else $page = 1;
       	} else {
                 $href = makeHref(array($queryKey => $key));
       	}
-        echo '<a '. $href .' target="'.BIBTEXBROWSER_MENU_TARGET.'">'. $item ."</a>\n";
+        echo '<a '. $href .' target="'.BIBTEXBROWSER_MENU_TARGET.'">'. $item ."</a>";
+        if ($index < count($items)-1) {
+          echo "\n".'<span class="breadcrumbSeparator">|</span>'."\n";
+        }
       }
       $index++;
     }
@@ -3300,6 +3306,7 @@ class SimpleDisplay  {
     } // end foreach
 
     print_footer_layout();
+    echo poweredby();
 
   } // end function
 
@@ -4275,7 +4282,6 @@ if (method_exists($content, 'getTitle')) {
   if (BIBTEXBROWSER_RENDER_MATH) {
     javascript_math();
   }
-  echo poweredby();
 ?>
 </body>
 </html>
