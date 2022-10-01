@@ -175,7 +175,7 @@ if (defined('ENCODING')) {
 
 @define('TYPES_SIZE',10); // number of entry types per table
 @define('YEAR_SIZE',20); // number of years per table
-@define('AUTHORS_SIZE',30); // number of authors per table
+@define('AUTHORS_SIZE',20); // number of authors per table
 @define('TAGS_SIZE',30); // number of keywords per table
 @define('READLINE_LIMIT',1024);
 @define('Q_YEAR', 'year');
@@ -2881,7 +2881,7 @@ class MenuManager {
       
       <!-- submit button -->
       <!-- <input type="submit" value="<?php echo __("search"); ?>" class="input_box"/>-->
-      <input type="image" alt="Search" class="search_submit" value="<?php echo __("search"); ?>" src="https://www.hu-berlin.de/de/++resource++humboldt.directsearch.submit.png" width="16px" height="16px">
+      <input type="image" alt="Search" class="search_submit" value="<?php echo __("search"); ?>" src="/img/submit.png" width="16px" height="16px">
     </div>
     </form> 
     </div>
