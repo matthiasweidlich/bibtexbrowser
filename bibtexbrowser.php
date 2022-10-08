@@ -4840,7 +4840,7 @@ class Dispatcher {
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo OUTPUT_ENCODING ?>"/>
     <title>Publications</title>
     </head>
-    <frameset rows="220px,*" border="0" frameborder="0">
+    <frameset rows="200px,*" border="0" frameborder="0">
     <frame name="menu" src="?menu" />
     <frame name="main" src="<?php echo '?'.BIBTEXBROWSER_DEFAULT_FRAME?>" />
     </frameset>
