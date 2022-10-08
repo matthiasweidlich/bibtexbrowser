@@ -2782,13 +2782,7 @@ function javascript() {
 if (!function_exists('javascript_math')) {
   function javascript_math() {
     ?>
-<script>
-MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
-  }
-};
-</script>
+<script type="text/javascript" src="<?php echo BIBTEXBROWSER_JS_MATH_URI ?>"></script>
 <script type="text/javascript" id="MathJax-script" async src="<?php echo MATHJAX_URI ?>">
 </script>
     <?php
@@ -4846,7 +4840,7 @@ class Dispatcher {
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo OUTPUT_ENCODING ?>"/>
     <title>Publications</title>
     </head>
-    <frameset rows="200px,*" border="0" frameborder="0">
+    <frameset rows="220px,*" border="0" frameborder="0">
     <frame name="menu" src="?menu" />
     <frame name="main" src="<?php echo '?'.BIBTEXBROWSER_DEFAULT_FRAME?>" />
     </frameset>
