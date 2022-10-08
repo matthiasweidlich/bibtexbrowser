@@ -7,5 +7,6 @@
 @define('BIBTEXBROWSER_JS_URI', 'js/bibtexbrowser.js');
 
 @define('LINK_CSS',true);
+@define('BIB_FILE','../pubs/refs.bib');
 
 ?>

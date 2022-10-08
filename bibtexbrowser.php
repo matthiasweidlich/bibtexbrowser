@@ -263,7 +263,8 @@ function config_value($key) {
 See also zetDB().
   */
 function setDB() {
-  list($db, $parsed, $updated, $saved) = _zetDB(@$_GET[Q_FILE]);
+  list($db, $parsed, $updated, $saved) = _zetDB(c('BIB_FILE'));
+  //list($db, $parsed, $updated, $saved) = _zetDB(@$_GET[Q_FILE]);
   $_GET[Q_DB] = $db;
   return $updated;
 }
@@ -1299,7 +1300,8 @@ class BibEntry {
     }
 //     echo $this->filename;
 //     echo $this->getKey();
-    return BIBTEXBROWSER_URL.'?'.createQueryString(array(Q_KEY=>$this->getKey(), Q_FILE=>$this->filename));
+    return BIBTEXBROWSER_URL.'?'.createQueryString(array(Q_KEY=>$this->getKey()));
+    //return BIBTEXBROWSER_URL.'?'.createQueryString(array(Q_KEY=>$this->getKey(), Q_FILE=>$this->filename));
   }
 
   /** @see bib2links(), kept for backward compatibility */
@@ -2679,10 +2681,10 @@ function createQueryString($array_param) {
  }
 
  // adding the bibtex file name is not already there
- if (isset($_GET[Q_FILE]) && !isset($array_param[Q_FILE])) {
+ //if (isset($_GET[Q_FILE]) && !isset($array_param[Q_FILE])) {
     // first we add the name of the bib file
-    $array_param[Q_FILE] = Q_FILE .'='. urlencode($_GET[Q_FILE]);
-  }
+ //  $array_param[Q_FILE] = Q_FILE .'='. urlencode($_GET[Q_FILE]);
+ //}
 
  return implode("&amp;",$array_param);
 }
@@ -2858,7 +2860,7 @@ class MenuManager {
     <form action="?" method="get" target="<?php echo BIBTEXBROWSER_MENU_TARGET;?>">
       <div class="">
       <input type="text" name="<?php echo Q_SEARCH; ?>" class="search_box" title="Search" placeholder="Search" size="18"/>
-      <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo @$_GET[Q_FILE]; ?>"/>
+      <?php //echo '<input type="hidden" name="' . Q_FILE . '" value="'. $_GET[Q_FILE] . '"/>';?>
       
       <!-- submit button -->
       <!-- <input type="submit" value="<?php echo __("search"); ?>" class="input_box"/>-->
@@ -4539,7 +4541,8 @@ class Dispatcher {
     // by default set it from $_GET[Q_FILE]
     // first we set the database (load from disk or parse the bibtex file)
     if ($this->db == null) {
-      list($db, $parsed, $updated, $saved) = _zetDB($_GET[Q_FILE]);
+      list($db, $parsed, $updated, $saved) = _zetDB(c('BIB_FILE'));
+      //list($db, $parsed, $updated, $saved) = _zetDB($_GET[Q_FILE]);
       $this->db = $db;
     }
     return $this->db;
@@ -4555,7 +4558,7 @@ class Dispatcher {
       return;
     }
 
-    if (!isset($_GET[Q_FILE])) { die('$_GET[\''.Q_FILE.'\'] is not set!'); }
+    //if (!isset($_GET[Q_FILE])) { die('$_GET[\''.Q_FILE.'\'] is not set!'); }
 
     // is the publication list included in another page?
     // strtr is used for Windows where __FILE__ contains C:\toto and SCRIPT_FILENAME contains C:/toto (bug reported by Marco)
@@ -4632,7 +4635,7 @@ class Dispatcher {
        // if some contents have already been sent, for instance if we are included
        // this means doing nothing
        if ( headers_sent() == false ) { /* to avoid sending an unnecessary frameset */
-         header("Location: ".$_SERVER['SCRIPT_NAME']."?frameset&bib=".$_GET[Q_FILE]);
+         header("Location: ".$_SERVER['SCRIPT_NAME']."?frameset"); //&bib=".$_GET[Q_FILE]);
        }
      }
   }
@@ -4841,15 +4844,19 @@ class Dispatcher {
     <head>
     <meta name="generator" content="bibtexbrowser v__GITHUB__" />
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo OUTPUT_ENCODING ?>"/>
-    <title>You are browsing <?php echo htmlentities($_GET[Q_FILE], ENT_QUOTES); ?> with bibtexbrowser</title>
+    <title>Publications</title>
     </head>
     <frameset rows="200px,*" border="0" frameborder="0">
-    <frame name="menu" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;menu'; ?>" />
-    <frame name="main" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;'.BIBTEXBROWSER_DEFAULT_FRAME?>" />
+    <frame name="menu" src="?menu" />
+    <frame name="main" src="<?php echo '?'.BIBTEXBROWSER_DEFAULT_FRAME?>" />
     </frameset>
     </html>
 
     <?php
+
+    //<frame name="menu" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;menu'; php>" />
+    //<frame name="main" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;'.BIBTEXBROWSER_DEFAULT_FRAME php>" />
+
     return 'END_DISPATCH';
 }
 
