@@ -93,7 +93,7 @@ if (defined('ENCODING')) {
 @define('ABBRV_TYPE','index');// may be year/x-abbrv/key/none/index/keys-index
 
 // are robots allowed to crawl and index bibtexbrowser generated pages?
-@define('BIBTEXBROWSER_ROBOTS_NOINDEX',false);
+@define('BIBTEXBROWSER_ROBOTS_NOINDEX',true);
 
 //the default view in the "main" (right hand side) frame
 @define('BIBTEXBROWSER_DEFAULT_FRAME','year=latest'); // year=latest,all and all valid bibtexbrowser queries
@@ -3174,7 +3174,7 @@ class SimpleDisplay  {
   }
 
   function metadata() {
-    if (BIBTEXBROWSER_ROBOTS_NOINDEX) {
+    if (c('BIBTEXBROWSER_ROBOTS_NOINDEX')) {
       return array(array('robots','noindex'));
     } else {
       return array();
